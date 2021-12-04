@@ -57,23 +57,6 @@ export default class MiniSlider extends Slider {
            
         });
     }
-    autoplayGo() {
-        let autoplay = setInterval(() => {
-            this.nextSlide();
-        },5000);
-
-        this.slides[0].parentNode.addEventListener('mouseover', () => {
-            clearInterval(autoplay);
-        });
-
-        this.next.addEventListener('mouseout', () => {
-            clearInterval(autoplay);
-        });
-
-        this.prev.addEventListener('mouseout', () => {
-            clearInterval(autoplay);
-        });
-    }
 
     init() {
         try {
@@ -86,23 +69,10 @@ export default class MiniSlider extends Slider {
 
             this.bindTriggers();
             this.decorizeSlides();
-            this.autoplayGo();
 
             if (this.autoplay) {
-                this.autoplayGo();
-
-                this.slides[0].parentNode.addEventListener('mouseleave', () => {
-                    this.autoplayGo();
-                });
-        
-                this.next.addEventListener('mousleave', () => {
-                    this.autoplayGo();
-                });
-        
-                this.prev.addEventListener('mousleave', () => {
-                    this.autoplayGo();
-                });    
+                setInterval(() => this.nextSlide(), 5000);
             }
-        }catch(e){}
+        } catch(e){}
     }
 }
